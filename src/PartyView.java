@@ -12,11 +12,14 @@ import javax.swing.JScrollPane;
 public class PartyView extends JFrame {
 
 	private JButton addEvent;
+	private JButton removeEvent;
+	private JButton editEvent;
 	private JList<Event> eventList;
-
+	
 	PartyView() {
-		this.addEvent = new JButton("Event hinzufügen");
-
+		this.addEvent = new JButton("Event hinzuf�gen");
+		this.removeEvent = new JButton("Event entfernen");
+		this.editEvent = new JButton("Event bearbeiten");
 		// define the panel layout
 		JPanel panel = new JPanel();
 		panel.add(addEvent);
@@ -40,8 +43,16 @@ public class PartyView extends JFrame {
 
 	}
 
-	void addButtonListener(ActionListener listenerForButton) {
-		addEvent.addActionListener(listenerForButton);
+	void addAddEventListener(ActionListener listenerForAdd) {
+		addEvent.addActionListener(listenerForAdd);
+	}
+
+	void addAddRemoveListener(ActionListener listenerForRemove) {
+		removeEvent.addActionListener(listenerForRemove);
+	}
+
+	void addAddEditListener(ActionListener listenerForEdit) {
+		editEvent.addActionListener(listenerForEdit);
 	}
 
 	void displayErrorMessage(String errorMessage) {
