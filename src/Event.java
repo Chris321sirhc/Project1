@@ -16,7 +16,7 @@ public class Event {
 	public Event() {
 		this.title = "awesomeEvent2";
 		this.date = new Date();
-		this.address = "Kapellenstra�e 8";
+		this.address = "Kapellenstraße 8";
 	}
 
 	public Event(String title, String date, String address) {

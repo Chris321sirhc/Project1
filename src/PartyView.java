@@ -12,10 +12,10 @@ import javax.swing.JScrollPane;
 public class PartyView extends JFrame {
 
 	private JButton addEvent;
-	private JList<String> countryList;
+	private JList<Event> eventList;
 
 	PartyView() {
-		this.addEvent = new JButton("Event hinzufügen");
+		this.addEvent = new JButton("Event hinzufÃ¼gen");
 
 		// define the panel layout
 		JPanel panel = new JPanel();
@@ -29,22 +29,14 @@ public class PartyView extends JFrame {
 		this.setVisible(true);
 
 		// create the model and add elements
-		DefaultListModel<String> listModel = new DefaultListModel<>();
-		listModel.addElement("USA");
-		listModel.addElement("India");
-		listModel.addElement("Vietnam");
-		listModel.addElement("Canada");
-		listModel.addElement("Denmark");
-		listModel.addElement("France");
-		listModel.addElement("Great Britain");
-		listModel.addElement("Japan");
+		DefaultListModel<Event> listModel = new DefaultListModel<Event>();
+		listModel.addElement(new Event());
 
 		// create the list
-		countryList = new JList<>(listModel);
-		JScrollPane listScrollPane = new JScrollPane(countryList);
+		eventList = new JList<Event>(listModel);
+		JScrollPane listScrollPane = new JScrollPane(eventList);
 		listScrollPane.setPreferredSize(new Dimension(300, 300));
 		panel.add(listScrollPane);
-		// this.add(countryList);
 
 	}
 
