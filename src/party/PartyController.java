@@ -1,3 +1,5 @@
+package party;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -6,18 +8,16 @@ import java.util.List;
 public class PartyController {
 
 	private Event event;
-	private PartyView theView;
+	private PartyView view;
 	private List<Event> events = new ArrayList<Event>();
 
-	public PartyController(List<Event> events, PartyView theView) {
-
-		this.theView = theView;
+	public PartyController(List<Event> events, PartyView view) {
+		this.view = view;
 		this.events = events;
-
-		this.theView.addAddEventListener(new AddListener());
-		this.theView.addAddRemoveListener(new RemoveListener());
-		this.theView.addAddEditListener(new EditListener());
-
+		this.view.loadEvents(events);
+		this.view.addAddEventListener(new AddListener());
+		this.view.addAddRemoveListener(new RemoveListener());
+		this.view.addAddEditListener(new EditListener());
 	}
 
 	class AddListener implements ActionListener {
@@ -27,7 +27,7 @@ public class PartyController {
 			try {
 
 			} catch (Exception e) {
-				theView.displayErrorMessage("Bitte alle Felder ausfüllen");
+				view.displayErrorMessage("Bitte alle Felder ausfï¿½llen");
 			}
 		}
 	}
@@ -39,7 +39,7 @@ public class PartyController {
 			try {
 
 			} catch (Exception e) {
-				theView.displayErrorMessage("Bitte alle Felder ausfüllen");
+				view.displayErrorMessage("Bitte alle Felder ausfï¿½llen");
 			}
 		}
 	}
@@ -51,7 +51,7 @@ public class PartyController {
 			try {
 
 			} catch (Exception e) {
-				theView.displayErrorMessage("Bitte alle Felder ausfüllen");
+				view.displayErrorMessage("Bitte alle Felder ausfï¿½llen");
 			}
 		}
 	}
