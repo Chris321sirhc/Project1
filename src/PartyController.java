@@ -1,58 +1,64 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class PartyController {
 
 	private Event event;
-	private PartyView theView;
+	private PartyView view;
 	private List<Event> events = new ArrayList<Event>();
 
 	public PartyController(List<Event> events, PartyView theView) {
 
-		this.theView = theView;
 		this.events = events;
-
-		this.theView.addAddEventListener(new AddListener());
-		this.theView.addAddRemoveListener(new RemoveListener());
-		this.theView.addAddEditListener(new EditListener());
+		this.view = theView;
+		this.view.updateEventList(events);
+		// Zugriff auf Export Button aus PartyView und Zuweisung eines
+		// ActionListeners; Aufruf der Methode exportEvents auf Klick
+		view.getExportEvents().addActionListener(e -> exportEvents("events.txt"));
+		view.getRemoveEvent().addActionListener(e -> removeEvent());
+		view.getEditEvent().addActionListener(e -> editEvent());
+		view.getAddEvent().addActionListener(e -> addEvent());
+		// this.theView.addAddEventListener(new AddListener());
+		// this.theView.addAddRemoveListener(new RemoveListener());
+		// this.theView.addAddEditListener(new EditListener());
+		// this.theView.addExportListener(new ExportListener());
 
 	}
 
-	class AddListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
+	public void exportEvents(String fileName) {
 
-			try {
+		try {
+			File listOfEvents = new File(fileName);
+			PrintWriter exporter = new PrintWriter(new BufferedWriter(new FileWriter(listOfEvents)));
 
-			} catch (Exception e) {
-				theView.displayErrorMessage("Bitte alle Felder ausfüllen");
+			for (Event event : events) {
+				exporter.println(event.toString());
 			}
+			exporter.close();
+		} catch (Exception e) {
+			System.out.println("error fileName");
 		}
+
 	}
 
-	class RemoveListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
+	public void removeEvent() {
 
-			try {
+		view.updateEventList(events);
 
-			} catch (Exception e) {
-				theView.displayErrorMessage("Bitte alle Felder ausfüllen");
-			}
-		}
 	}
 
-	class EditListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
+	public void addEvent() {
+		// events.add(event);
+		Scanner scanner = new Scanner(System.in);
+		AddGUI addEvent = new AddGUI();
+	}
 
-			try {
+	public void editEvent() {
 
-			} catch (Exception e) {
-				theView.displayErrorMessage("Bitte alle Felder ausfüllen");
-			}
-		}
 	}
 }

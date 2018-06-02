@@ -18,6 +18,9 @@ public class MVCParty {
 		PartyController controller = new PartyController(events, view);
 
 		view.setVisible(true);
+
+		// I/O Streams
+
 	}
 
 }
