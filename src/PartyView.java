@@ -3,22 +3,27 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+/**
+ * @author Chris GUI of PartyKIT2
+ */
 public class PartyView extends JFrame {
 
 	private JButton addEvent;
 	private JButton removeEvent;
 	private JButton editEvent;
 	private JButton exportEvents;
-	private JFileChooser fileChooser;
 	private JList<Event> eventList;
 	private DefaultListModel<Event> listModel;
 
+	/**
+	 * creates JButtons and JPanel as well as listModel-DefaultListModel and
+	 * eventList-JList
+	 */
 	PartyView() {
 		this.addEvent = new JButton("Event hinzufügen");
 		this.removeEvent = new JButton("Event entfernen");
@@ -50,6 +55,25 @@ public class PartyView extends JFrame {
 
 	}
 
+	/**
+	 * @return listModel
+	 */
+	public DefaultListModel<Event> getListModel() {
+		return listModel;
+	}
+
+	/**
+	 * @return eventList
+	 */
+	public JList<Event> getEventList() {
+		return eventList;
+	}
+
+	/**
+	 * @param events
+	 *            clears listModel and adds all current events to it; displays
+	 *            "Updated Events"
+	 */
 	public void updateEventList(List<Event> events) {
 		listModel.clear();
 		for (Event event : events) {
@@ -58,6 +82,9 @@ public class PartyView extends JFrame {
 		// JOptionPane.showMessageDialog(this, "Updated Events");
 	}
 
+	/**
+	 * @return Add
+	 */
 	public JButton getAddEvent() {
 		return addEvent;
 	}
@@ -73,42 +100,5 @@ public class PartyView extends JFrame {
 	public JButton getExportEvents() {
 		return exportEvents;
 	}
-
-	public void setAddEvent(JButton addEvent) {
-		this.addEvent = addEvent;
-	}
-
-	public void setRemoveEvent(JButton removeEvent) {
-		this.removeEvent = removeEvent;
-	}
-
-	public void setEditEvent(JButton editEvent) {
-		this.editEvent = editEvent;
-	}
-
-	public void setExportEvents(JButton exportEvents) {
-		this.exportEvents = exportEvents;
-	}
-
-	//
-	// void addAddEventListener(ActionListener listenerForAdd) {
-	// addEvent.addActionListener(listenerForAdd);
-	// }
-	//
-	// void addAddRemoveListener(ActionListener listenerForRemove) {
-	// removeEvent.addActionListener(listenerForRemove);
-	// }
-	//
-	// void addAddEditListener(ActionListener listenerForEdit) {
-	// editEvent.addActionListener(listenerForEdit);
-	// }
-	//
-	// void addExportListener(ActionListener listenerForExport) {
-	// exportEvents.addActionListener(listenerForExport);
-	// }
-	//
-	// void displayErrorMessage(String errorMessage) {
-	// JOptionPane.showMessageDialog(this, errorMessage);
-	// }
 
 }

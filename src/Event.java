@@ -3,8 +3,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @author Chris
- *
+ * @author Chris Model Object Event hast title, date, address
+ * 
  */
 public class Event {
 
@@ -13,12 +13,22 @@ public class Event {
 	private Date date;
 	private String address;
 
+	/**
+	 * creates standard event
+	 */
 	public Event() {
-		this.title = "awesomeEvent2";
+		this.title = "Awesome Event";
 		this.date = new Date();
-		this.address = "Kapellenstraße 8";
+		this.address = "Awesome Street 8";
 	}
 
+	/**
+	 * creates Event with Strings title, date, address from user input
+	 * 
+	 * @param title
+	 * @param date
+	 * @param address
+	 */
 	public Event(String title, String date, String address) {
 		this.title = title;
 
@@ -31,14 +41,23 @@ public class Event {
 		this.address = address;
 	}
 
+	/**
+	 * @return title of Event
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @return date of Event
+	 */
 	public String getStringDate() {
 		return dateFormat.format(date);
 	}
 
+	/**
+	 * @return address of Event
+	 */
 	public String getAddress() {
 		return address;
 	}

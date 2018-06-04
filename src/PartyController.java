@@ -4,32 +4,45 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
+/**
+ * @author Chris controller class
+ */
 public class PartyController {
 
 	private Event event;
 	private PartyView view;
 	private List<Event> events = new ArrayList<Event>();
 
+	/**
+	 * receives event list and view from main and updates the GUI to match the
+	 * events adds 4 ButtonListeners and links them to the respective methods
+	 * 
+	 * @param events
+	 * @param theView
+	 */
 	public PartyController(List<Event> events, PartyView theView) {
 
 		this.events = events;
 		this.view = theView;
+
+		// assigns list of events to the View class to be displayed in JList GUI
 		this.view.updateEventList(events);
-		// Zugriff auf Export Button aus PartyView und Zuweisung eines
-		// ActionListeners; Aufruf der Methode exportEvents auf Klick
+
+		// access buttons of View interface PartyView and assigns them
+		// ActionListeners that trigger methods
 		view.getExportEvents().addActionListener(e -> exportEvents("events.txt"));
 		view.getRemoveEvent().addActionListener(e -> removeEvent());
 		view.getEditEvent().addActionListener(e -> editEvent());
 		view.getAddEvent().addActionListener(e -> addEvent());
-		// this.theView.addAddEventListener(new AddListener());
-		// this.theView.addAddRemoveListener(new RemoveListener());
-		// this.theView.addAddEditListener(new EditListener());
-		// this.theView.addExportListener(new ExportListener());
 
 	}
 
+	/**
+	 * @param fileName
+	 *            exports all existing Events in events-List<Event> to
+	 *            "events.txt" in the workspace directory
+	 */
 	public void exportEvents(String fileName) {
 
 		try {
@@ -41,23 +54,44 @@ public class PartyController {
 			}
 			exporter.close();
 		} catch (Exception e) {
-			System.out.println("error fileName");
+			System.out.println("error fileName"); // ?
 		}
 
 	}
 
+	/**
+	 * removes the selected list entry from the list and then updates the list
+	 */
 	public void removeEvent() {
-
+		events.remove(view.getEventList().getSelectedIndex());
 		view.updateEventList(events);
 
 	}
 
+	/**
+	 * method opens new GUI AddGUI and uses input to create a new event of the
+	 * class Event updates events afterwards
+	 */
 	public void addEvent() {
-		// events.add(event);
-		Scanner scanner = new Scanner(System.in);
-		AddGUI addEvent = new AddGUI();
+		EventDataGUI addEvent = new EventDataGUI();
+
+		// if (addEvent.getOkay().isEnabled() == true) {
+		// Event event = new
+		// Event(addEvent.getInputTitle().getText().toString(),
+		// addEvent.getInputDate().getText().toString(),
+		// addEvent.getInputAddress().getText().toString());
+		Event event1 = new Event(addEvent.inputTitle.getText(), addEvent.inputDate.getText(),
+				addEvent.inputAddress.getText());
+		events.add(event);
+		// }
+		// if (!addEvent.getOkay().isEnabled() == true) {
+		// }
+		view.updateEventList(events);
 	}
 
+	/**
+	 * edits an existing event
+	 */
 	public void editEvent() {
 
 	}
