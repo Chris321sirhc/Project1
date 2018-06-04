@@ -15,11 +15,11 @@ public class EventDataGUI extends JFrame {
 	JTextField inputDate = new JTextField(14);
 	JTextField inputAddress = new JTextField(14);
 	JLabel title, date, address;
-	JFrame frame = new JFrame("Event hinzufügen");
+	// JFrame frame = new JFrame("Event hinzufï¿½gen");
 	Font font = new Font("Comic Sans", Font.PLAIN, 20);
 
 	public EventDataGUI() {
-		Container c = frame.getContentPane();
+		Container c = this.getContentPane();
 		SpringLayout layout = new SpringLayout();
 		c.setLayout(layout);
 
@@ -32,6 +32,9 @@ public class EventDataGUI extends JFrame {
 		address = new JLabel("Adresse");
 		// ? title.setSize(500, 100);
 		// ? date.setSize(new Dimension(50, 10));
+		inputTitle.setText("Event1");
+		inputDate.setText("14.03.2019 12:00");
+		inputAddress.setText("Venue1");
 		title.setFont(font);
 		date.setFont(font);
 		address.setFont(font);
@@ -77,37 +80,16 @@ public class EventDataGUI extends JFrame {
 		layout.putConstraint(SpringLayout.EAST, okay, -5, SpringLayout.EAST, c);
 		layout.putConstraint(SpringLayout.SOUTH, okay, -5, SpringLayout.SOUTH, c);
 
-		frame.pack();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		frame.setMinimumSize(new Dimension(600, 200));
-		frame.setLocationRelativeTo(null);
 
-		// inputPanel = new JPanel();
-		//
-		//
-		// inputPanel.add(title);
-		// inputPanel.add(date);
-		// inputPanel.add(address);
-		// inputPanel.add(inputTitle);
-		// inputPanel.add(inputDate);
-		// inputPanel.add(inputAddress);
-		//
-		// inputTitle.setLocation(20, 80);
+		this.setVisible(false);
+		this.pack();
+		this.setVisible(true);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setMinimumSize(new Dimension(600, 200));
+		this.setLocationRelativeTo(null);
 
-		// this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		// this.setVisible(true);
-		// this.setSize(600, 200);
-		// this.setLocationRelativeTo(null);
-		// this.setTitle("Event hinzufügen");
-		//
-		// this.add();
 	}
-
-	public JFrame getFrame() {
-		return frame;
-	}
-
+	
 	public JTextField getInputTitle() {
 		return inputTitle;
 	}

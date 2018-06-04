@@ -25,7 +25,7 @@ public class PartyView extends JFrame {
 	 * eventList-JList
 	 */
 	PartyView() {
-		this.addEvent = new JButton("Event hinzufügen");
+		this.addEvent = new JButton("Event hinzufuegen");
 		this.removeEvent = new JButton("Event entfernen");
 		this.editEvent = new JButton("Event bearbeiten");
 		this.exportEvents = new JButton("Events als .txt exportieren");
@@ -38,7 +38,7 @@ public class PartyView extends JFrame {
 		panel.add(exportEvents);
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(800, 400);
+		this.setSize(1000, 500);
 		this.add(panel);
 		this.setTitle("Party Kalender KIT");
 		this.setLocationRelativeTo(null); // ?
@@ -75,7 +75,8 @@ public class PartyView extends JFrame {
 	 *            "Updated Events"
 	 */
 	public void updateEventList(List<Event> events) {
-		listModel.clear();
+		// listModel.clear();
+		listModel.removeAllElements();
 		for (Event event : events) {
 			listModel.addElement(event);
 		}

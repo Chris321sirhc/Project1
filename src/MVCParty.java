@@ -19,9 +19,9 @@ public class MVCParty {
 		List<Event> events = new ArrayList<Event>();
 
 		// dummy events
-		events.add(new Event());
-		events.add(new Event());
-		events.add(new Event());
+		events.add(new Event("Kaffetrinken", "20.04.2019 16:20", "Café Gute Laune"));
+		events.add(new Event("Bierchen zischen", "15.03.2019 14:00", "AKK"));
+		events.add(new Event("Shopping Tour", "21.06.2018 11:30", "Ettlinger Tor Center"));
 
 		// creates Instance of view, displays GUI
 		PartyView view = new PartyView();

@@ -4,6 +4,10 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+
 
 /**
  * @author Chris controller class
@@ -13,6 +17,8 @@ public class PartyController {
 	private Event event;
 	private PartyView view;
 	private List<Event> events = new ArrayList<Event>();
+	private EventDataGUI viewEvent;
+	private JFileChooser fileChooser;
 
 	/**
 	 * receives event list and view from main and updates the GUI to match the
@@ -26,37 +32,47 @@ public class PartyController {
 		this.events = events;
 		this.view = theView;
 
+		// sorts events by date
+		this.events.sort(new DateComparator());
+
 		// assigns list of events to the View class to be displayed in JList GUI
 		this.view.updateEventList(events);
 
 		// access buttons of View interface PartyView and assigns them
 		// ActionListeners that trigger methods
-		view.getExportEvents().addActionListener(e -> exportEvents("events.txt"));
+		view.getExportEvents().addActionListener(e -> exportEvents());
 		view.getRemoveEvent().addActionListener(e -> removeEvent());
 		view.getEditEvent().addActionListener(e -> editEvent());
 		view.getAddEvent().addActionListener(e -> addEvent());
 
+		viewEvent = new EventDataGUI();
+		viewEvent.setVisible(false);
+		viewEvent.okay.addActionListener(e -> createEvent());
+
 	}
 
 	/**
-	 * @param fileName
 	 *            exports all existing Events in events-List<Event> to
 	 *            "events.txt" in the workspace directory
 	 */
-	public void exportEvents(String fileName) {
+	
+	public void exportEvents() {
 
-		try {
-			File listOfEvents = new File(fileName);
-			PrintWriter exporter = new PrintWriter(new BufferedWriter(new FileWriter(listOfEvents)));
+			fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			int returnValue = fileChooser.showSaveDialog(null);
+			if(returnValue == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				try {
+					PrintWriter exporter = new PrintWriter(new BufferedWriter(new FileWriter(selectedFile)));
 
-			for (Event event : events) {
-				exporter.println(event.toString());
+					for (Event event : events) {
+						exporter.println(event.toString());
+					}
+					exporter.close();
+				} catch (Exception e) {
+					System.out.println("error fileName"); 
+				}
 			}
-			exporter.close();
-		} catch (Exception e) {
-			System.out.println("error fileName"); // ?
-		}
-
 	}
 
 	/**
@@ -65,34 +81,42 @@ public class PartyController {
 	public void removeEvent() {
 		events.remove(view.getEventList().getSelectedIndex());
 		view.updateEventList(events);
-
+		
 	}
 
 	/**
-	 * method opens new GUI AddGUI and uses input to create a new event of the
-	 * class Event updates events afterwards
+	 * method opens new GUI AddGUI
 	 */
 	public void addEvent() {
-		EventDataGUI addEvent = new EventDataGUI();
 
-		// if (addEvent.getOkay().isEnabled() == true) {
-		// Event event = new
-		// Event(addEvent.getInputTitle().getText().toString(),
-		// addEvent.getInputDate().getText().toString(),
-		// addEvent.getInputAddress().getText().toString());
-		Event event1 = new Event(addEvent.inputTitle.getText(), addEvent.inputDate.getText(),
-				addEvent.inputAddress.getText());
-		events.add(event);
-		// }
-		// if (!addEvent.getOkay().isEnabled() == true) {
-		// }
-		view.updateEventList(events);
+		viewEvent.setVisible(true);
+				
 	}
 
 	/**
-	 * edits an existing event
+	 * method creates an event
+	 */
+	public void createEvent() {
+
+		Event event = new Event(viewEvent.inputTitle.getText(), viewEvent.inputDate.getText(),
+				viewEvent.inputAddress.getText());
+		events.add(event);
+		this.events.sort(new DateComparator());
+		view.updateEventList(events);
+		viewEvent.setVisible(false);
+		
+	}
+
+	/**
+	 * method edits an existing event
 	 */
 	public void editEvent() {
+		viewEvent.setVisible(true);
+		event = events.get(view.getEventList().getSelectedIndex());
 
+		viewEvent.inputTitle.setText(event.getTitle());
+		viewEvent.inputDate.setText(event.getStringDate());
+		viewEvent.inputAddress.setText(event.getAddress());
+		removeEvent();
 	}
 }

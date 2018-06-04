@@ -1,5 +1,6 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
 public class Event {
 
 	private String title;
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm");
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm");
 	private Date date;
 	private String address;
 
@@ -49,10 +50,14 @@ public class Event {
 	}
 
 	/**
-	 * @return date of Event
+	 * @return date of Event as String
 	 */
 	public String getStringDate() {
 		return dateFormat.format(date);
+	}
+
+	public Date getDate() {
+		return date;
 	}
 
 	/**
@@ -64,5 +69,19 @@ public class Event {
 
 	public String toString() {
 		return title + " | " + this.getStringDate() + " | " + address;
+	}
+
+	
+
+}
+
+class DateComparator implements Comparator<Event> {
+	public int compare(Event a, Event b) {
+		return a.getDate().compareTo(b.getDate());
+		// if (a.getDate().before(b.getDate())) {
+			
+		// } else {
+			
+		// }
 	}
 }
